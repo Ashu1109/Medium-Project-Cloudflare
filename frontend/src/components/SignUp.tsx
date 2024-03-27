@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signUpZod } from "@aayushkumar11092002/medium-common";
 import * as z from "zod";
+import img from "../../public/images.png";
 import {
   Form,
   FormControl,
@@ -33,6 +34,10 @@ const SignUp = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] flex justify-between items-center mx-10">
+      <div className="absolute top-9 left-9  font-semibold text-xl flex justify-center items-center gap-2">
+        <img src={img} alt="img" className="w-8 h-8" />
+        <div>Medium</div>
+      </div>
       <div className=" w-[50%] h-full flex justify-center items-center flex-col">
         <h1 className=" text-2xl font-bold  tracking-wide">
           Create an account
