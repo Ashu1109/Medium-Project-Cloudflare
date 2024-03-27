@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signInZod } from "@aayushkumar11092002/medium-common";
@@ -14,13 +14,10 @@ import {
 } from "../components/ui/form";
 import { Input } from "../components/ui/input";
 import img from "../../public/images.png";
+import axios from "axios";
 
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// });
 const SignIn = () => {
+  const navigator = useNavigate();
   const form = useForm<z.infer<typeof signInZod>>({
     resolver: zodResolver(signInZod),
     defaultValues: {
@@ -28,8 +25,18 @@ const SignIn = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signInZod>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof signInZod>) {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signin`,values)
+      const jwt = res.data.token
+      if(jwt==undefined){
+        return;
+      }
+      localStorage.setItem("token",`Bearer ${jwt}`)
+      navigator("/blog")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

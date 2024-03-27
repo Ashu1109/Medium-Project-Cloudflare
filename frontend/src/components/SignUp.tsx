@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signUpZod } from "@aayushkumar11092002/medium-common";
@@ -13,13 +13,10 @@ import {
   FormItem,
   FormLabel,
 } from "../components/ui/form";
+import axios from "axios";
 import { Input } from "../components/ui/input";
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// });
 const SignUp = () => {
+  const navigator = useNavigate();
   const form = useForm<z.infer<typeof signUpZod>>({
     resolver: zodResolver(signUpZod),
     defaultValues: {
@@ -28,17 +25,27 @@ const SignUp = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signUpZod>) {
+  async function onSubmit(values: z.infer<typeof signUpZod>) {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signup`,values)
+      const jwt = await res.data.token
+      if(jwt==undefined){
+        return;
+      }
+      localStorage.setItem("token",`Bearer ${jwt}`)
+      navigator("/blog");
+    } catch (error) {
+      console.log(error)
+    }
     console.log(values);
   }
-
   return (
     <div className="w-[100vw] h-[100vh] flex justify-between items-center mx-10">
       <div className="absolute top-9 left-9  font-semibold text-xl flex justify-center items-center gap-2">
         <img src={img} alt="img" className="w-8 h-8" />
         <div>Medium</div>
       </div>
-      <div className=" w-[50%] h-full flex justify-center items-center flex-col">
+      <div className=" md:w-[50%] w-full h-full flex justify-center items-center flex-col">
         <h1 className=" text-2xl font-bold  tracking-wide">
           Create an account
         </h1>
@@ -76,7 +83,7 @@ const SignUp = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your password" {...field} />
+                        <Input type="password" placeholder="Enter your password" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -89,8 +96,8 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <div className=" w-[50%] h-full flex justify-center  flex-col p-10 mr-5 bg-gray-300">
-        <h1 className="  text-3xl font-semibold">
+      <div className=" hidden w-[50%] h-full md:flex justify-center  flex-col p-10 mr-5 bg-gray-300">
+        <h1 className=" text-3xl font-semibold">
           "The customer service I received was exceptional. The support team
           went above and beyond to address my concerns"
         </h1>

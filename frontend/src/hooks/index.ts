@@ -5,10 +5,10 @@ export const useBlog = () => {
     const [allBlog, setAllBlog] = useState([]);
     useEffect(() => {
         setLoading(true)
-        axios.get(`${import.meta.env.BACKEND_URL}/api/v1/blog/all-bulk`)
-            .then((res) => setAllBlog(res.data))
+        const token = localStorage.getItem("token")
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/all-bulk`,{headers:{"Authorization":token}})
+            .then((res) => {setAllBlog(res.data); setLoading(false)})
             .catch((e) => console.log(e))
-        setLoading(false);
     },[])
 
     return { loading, allBlog };

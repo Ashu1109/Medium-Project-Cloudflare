@@ -2,8 +2,15 @@ import { useBlog } from "@/hooks";
 import img from "../../public/images.png";
 import Card from "./Card";
 const Blog = () => {
-  const blog = useBlog();
-  console.log(blog);
+  const { loading, allBlog } = useBlog();
+  console.log(loading, allBlog);
+  if (loading) {
+    return (
+      <div className=" flex justify-center items-center h-[100vh] w-[100vw]">
+        <div className=" border-b-[4px] border-gray-800 animate-spin rounded-full w-10 h-10"></div>
+      </div>
+    );
+  }
   return (
     <div>
       <div className="absolute top-9 left-9  font-semibold text-xl flex justify-center items-center gap-2">
