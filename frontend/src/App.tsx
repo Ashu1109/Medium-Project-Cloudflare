@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn";
 import BlogPage from "./components/BlogPage";
 import CreateNewBlog from "./components/CreateNewBlog";
 import Blog from "./components/Blog";
 import PrivateRoutes from "./lib/PrivateRoutes";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 function App() {
   return (
     <>
