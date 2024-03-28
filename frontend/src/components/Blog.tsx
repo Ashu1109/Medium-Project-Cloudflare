@@ -1,5 +1,5 @@
 import { useBlog } from "@/hooks";
-import img from "../../public/images.png";
+import img from "/images.png";
 import Card from "./Card";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";

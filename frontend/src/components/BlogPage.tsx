@@ -1,6 +1,6 @@
 import { useBlogById } from "@/hooks";
 import { Link, useParams } from "react-router-dom";
-import img from "../../public/images.png";
+import img from "/images.png";
 import Loading from "./Loading";
 import { FormatDate } from "@/lib/DateAndTimeConverter";
 

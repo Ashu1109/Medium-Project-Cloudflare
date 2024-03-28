@@ -13,7 +13,7 @@ import {
   FormLabel,
 } from "../components/ui/form";
 import { Input } from "../components/ui/input";
-import img from "../../public/images.png";
+import img from "/images.png";
 import axios from "axios";
 
 const SignIn = () => {

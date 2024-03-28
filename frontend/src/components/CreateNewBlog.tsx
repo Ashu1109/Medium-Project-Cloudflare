@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
-import img from "../../public/images.png";
+import img from "/images.png";
 import Loading from "./Loading";
 import { Button } from "./ui/button";
 import { Form, FormControl, FormField, FormItem } from "./ui/form";

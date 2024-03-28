@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signUpZod } from "@aayushkumar11092002/medium-common";
 import * as z from "zod";
-import img from "../../public/images.png";
+import img from "/images.png";
 import {
   Form,
   FormControl,

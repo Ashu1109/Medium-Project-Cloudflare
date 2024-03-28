@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import img from "../../public/images.png";
+import img from "/images.png";
 import { FormatDate, Time } from "@/lib/DateAndTimeConverter";
 interface CardProps {
   data: {
