@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import { blogZod } from "@aayushkumar11092002/medium-common";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import * as z from "zod";
+import img from "../../public/images.png";
+import Loading from "./Loading";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { blogZod } from "@aayushkumar11092002/medium-common";
-import * as z from "zod";
-import { Form, FormControl, FormField, FormItem } from "./ui/form";
-import axios from "axios";
-import img from "../../public/images.png";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import Loading from "./Loading";
 const CreateNewBlog = () => {
   const form = useForm<z.infer<typeof blogZod>>({
     resolver: zodResolver(blogZod),
