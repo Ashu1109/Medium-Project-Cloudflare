@@ -19,6 +19,7 @@ model User{
   name String?
   password String
   posts Post[]
+  createdAt DateTime @default(now())
 }
 
 model Post{
@@ -27,5 +28,6 @@ model Post{
   content String
   published Boolean @default(false)
   authorId String
+  createdAt DateTime @default(now())
   author User @relation(fields: [authorId],references: [id])
 }

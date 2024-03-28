@@ -38,7 +38,6 @@ blogRoutes.post('/', async (c) => {
     try {
         const prisma: PrismaClient = c.get("prisma")
         const userId = c.get('userId');
-        console.log(userId);
         if (!userId) {
             c.status(403);
             return c.json({ msg: "unauthorized" })
@@ -95,7 +94,11 @@ blogRoutes.put('/', async (c) => {
 blogRoutes.get('/all-bulk', async (c) => {
     try {
         const prisma = c.get("prisma")
-        const userBlog = await prisma.post.findMany({})
+        const userBlog = await prisma.post.findMany({
+            include: {
+                author: true
+            }
+        })
         c.status(200)
         return c.json({ data: userBlog })
     } catch (error) {
@@ -115,6 +118,9 @@ blogRoutes.get('/:id', async (c) => {
         const blog = await prisma.post.findUnique({
             where: {
                 id
+            },
+            include:{
+                author:true
             }
         })
         c.status(200)

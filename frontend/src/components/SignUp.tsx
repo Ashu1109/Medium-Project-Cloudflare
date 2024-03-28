@@ -37,7 +37,6 @@ const SignUp = () => {
     } catch (error) {
       console.log(error)
     }
-    console.log(values);
   }
   return (
     <div className="w-[100vw] h-[100vh] flex justify-between items-center mx-10">

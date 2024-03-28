@@ -1,27 +1,44 @@
 import { useBlog } from "@/hooks";
 import img from "../../public/images.png";
 import Card from "./Card";
+import { Button } from "./ui/button";
+import { Link, useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 const Blog = () => {
   const { loading, allBlog } = useBlog();
-  console.log(loading, allBlog);
+  const navigator = useNavigate();
   if (loading) {
-    return (
-      <div className=" flex justify-center items-center h-[100vh] w-[100vw]">
-        <div className=" border-b-[4px] border-gray-800 animate-spin rounded-full w-10 h-10"></div>
-      </div>
-    );
+    return <Loading/>
   }
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigator("/signin");
+  };
   return (
     <div>
       <div className="absolute top-9 left-9  font-semibold text-xl flex justify-center items-center gap-2">
         <img src={img} alt="img" className="w-8 h-8" />
         <div>Medium</div>
       </div>
+      <div className="absolute top-10  right-8   font-semibold text-xl flex justify-center items-center gap-2">
+        <Button
+          onClick={handleSignOut}
+          className=" font-bold "
+          variant={"outline"}
+        >
+          SignOut
+        </Button>
+      </div>
+      <Link to={"/createblog"}>
+        <div className="absolute top-10 right-36 font-semibold text-xl flex justify-center items-center gap-2">
+          <Button className=" font-bold " variant={"outline"}>
+            New
+          </Button>
+        </div>
+      </Link>
       <div className=" p-24">
-        {[...Array(4)].map((_, i) => (
-          <div key={i}>
-            <Card />
-          </div>
+        {allBlog.map((data, i) => (
+          <Card data={data} key={i} />
         ))}
       </div>
     </div>

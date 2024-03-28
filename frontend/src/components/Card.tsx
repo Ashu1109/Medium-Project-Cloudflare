@@ -1,23 +1,28 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import img from "../../public/images.png";
-const Card = () => {
-  const data = {
-    author: "Peter V.",
-    date: "Dec 3,2023",
-    title:
-      "How an Ugly Single-Page Website Makes $5,000 a Month with Affiliate Marketing",
-    content:
-      "No need to create a fancy and modern website with hundreds of pages to make money online. Making money online is the dream for man.Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, repellat temporibus aliquid modi magnam fuga, similique adipisci delectus, ducimus dolores natus. Quidem, aliquid est earum cum quaerat soluta inventore accusantium.",
+import { FormatDate, Time } from "@/lib/DateAndTimeConverter";
+interface CardProps {
+  data: {
+    id:string
+    author: { email: string };
+    createdAt: Date;
+    title: string;
+    content: string;
   };
+}
+const Card = ({ data }: CardProps) => {
+  const CreatedDate = FormatDate(data.createdAt);
+  const createdAt = new Date(data.createdAt);
+  const time = Time(createdAt)
   const words = data.content.split(" ");
   const content = words.slice(0, 40).join(" ");
   return (
-    <div>
+    <Link to={data.id}>
       <div className=" flex gap-1 p-6">
         <div className="flex justify-center items-center gap-2 ">
           <img src={img} className="w-5 h-5" />
-          <div>{data.author}</div>
-          <div className=" text-md text-slate-500">{data.date}</div>
+          <div>{data.author.email}</div>
+          <div className=" text-md text-slate-500">{`${CreatedDate.monthName} ${CreatedDate.date},${CreatedDate.year} | ${time}`}</div>
         </div>
       </div>
       <div className="">
@@ -25,7 +30,7 @@ const Card = () => {
         <div className=" text-xl font-light p-3">{content}...</div>
       </div>
       <div className=" border-b-[2px] "></div>
-    </div>
+    </Link>
   );
 };
 

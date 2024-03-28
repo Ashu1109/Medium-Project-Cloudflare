@@ -21,6 +21,9 @@ export const blogUpdateZod = z.object({
     published: z.optional(z.boolean()),
     content: z.optional(z.string()),
 })
+
+
+
 export type SignUpZod = z.infer<typeof signUpZod>;
 export type BlogZod = z.infer<typeof blogZod>;
 export type SignInZod = z.infer<typeof signInZod>;
